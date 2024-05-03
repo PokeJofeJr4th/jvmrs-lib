@@ -17,34 +17,34 @@ pub enum FieldType {
 #[macro_export]
 macro_rules! field {
     (byte) => {
-        $crate::class::FieldType::Byte
+        $crate::FieldType::Byte
     };
     (short) => {
-        $crate::class::FieldType::Short
+        $crate::FieldType::Short
     };
     (int) => {
-        $crate::class::FieldType::Int
+        $crate::FieldType::Int
     };
     (long) => {
-        $crate::class::FieldType::Long
+        $crate::FieldType::Long
     };
     (float) => {
-        $crate::class::FieldType::Float
+        $crate::FieldType::Float
     };
     (double) => {
-        $crate::class::FieldType::Double
+        $crate::FieldType::Double
     };
     (char) => {
-        $crate::class::FieldType::Char
+        $crate::FieldType::Char
     };
     (boolean) => {
-        $crate::class::FieldType::Boolean
+        $crate::FieldType::Boolean
     };
     ([]$($rest:tt)*) => {
-        $crate::class::FieldType::Array(Box::new($crate::field!($($rest)*)))
+        $crate::FieldType::Array(Box::new($crate::field!($($rest)*)))
     };
     (Object($id:expr)) => {
-        $crate::class::FieldType::Object($id)
+        $crate::FieldType::Object($id)
     };
     (($($t:tt)*)) => {
         $crate::field!($($t)*)

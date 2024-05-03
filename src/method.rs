@@ -23,8 +23,8 @@ impl MethodDescriptor {
 #[macro_export]
 macro_rules! method {
     (($($params:tt),*) -> void) => {{
-        let parameters: Vec<$crate::class::FieldType> = vec![$($crate::field!($params)),*];
-        $crate::class::MethodDescriptor {
+        let parameters: Vec<$crate::FieldType> = vec![$($crate::field!($params)),*];
+        $crate::MethodDescriptor {
             parameter_size: parameters.iter().map(|param| param.get_size()).sum(),
             parameters,
             return_type: None,
@@ -32,8 +32,8 @@ macro_rules! method {
     }};
 
     (($($params:tt),*) -> $($out:tt)*) => {{
-        let parameters: Vec<$crate::class::FieldType> = vec![$($crate::field!($params)),*];
-        $crate::class::MethodDescriptor {
+        let parameters: Vec<$crate::FieldType> = vec![$($crate::field!($params)),*];
+        $crate::MethodDescriptor {
             parameter_size: parameters.iter().map(|param| param.get_size()).sum(),
             parameters,
             return_type: Some($crate::field!($($out)*)),
