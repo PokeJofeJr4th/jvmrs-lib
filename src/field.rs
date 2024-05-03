@@ -1,4 +1,10 @@
-use std::{fmt::Display, sync::Arc};
+use std::{
+    fmt::{Debug, Display},
+    hash::Hash,
+    sync::Arc,
+};
+
+use crate::AccessFlags;
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum FieldType {
@@ -96,5 +102,31 @@ impl FieldType {
             Self::Boolean => 8,
             Self::Array(_) => 9,
         }
+    }
+}
+
+pub struct FieldHandle<FT = FieldType> {
+    pub ty: FT,
+    pub name: Arc<str>,
+    pub class: Arc<str>,
+    pub access: AccessFlags,
+}
+
+impl<FT: Hash> Hash for FieldHandle<FT> {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.ty.hash(state);
+        self.name.hash(state);
+        self.class.hash(state);
+        self.access.hash(state);
+    }
+}
+
+impl<FT: Display> Debug for FieldHandle<FT> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "{} {} {}.{}",
+            self.access, self.ty, self.class, self.name
+        )
     }
 }

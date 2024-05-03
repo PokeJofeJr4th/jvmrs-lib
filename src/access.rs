@@ -60,7 +60,7 @@ macro_rules! access {
     };
 }
 
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash)]
 /// Flag Name           Value   Interpretation
 /// `ACC_PUBLIC`          0x0001  Declared public; may be accessed from outside its package.
 /// `ACC_PRIVATE`         0x0002  Declared private; usable only within the defining class.
