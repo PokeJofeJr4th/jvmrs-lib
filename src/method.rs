@@ -1,5 +1,6 @@
 use std::fmt::{Debug, Display};
 use std::hash::Hash;
+use std::sync::Arc;
 
 use crate::field::FieldType;
 
@@ -10,6 +11,23 @@ pub struct MethodDescriptor<FT = FieldType> {
     pub parameters: Vec<FT>,
     /// method return type; None => void
     pub return_type: Option<FT>,
+}
+
+impl MethodDescriptor {
+    pub fn repr(&self) -> Arc<str> {
+        let mut repr = "(".to_string();
+        for param in &self.parameters {
+            repr.push_str(&param.repr());
+        }
+        repr.push(')');
+        repr.push_str(
+            &self
+                .return_type
+                .as_ref()
+                .map_or_else(|| "V".into(), FieldType::repr),
+        );
+        repr.into()
+    }
 }
 
 impl<FT> MethodDescriptor<FT> {
