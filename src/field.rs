@@ -103,6 +103,21 @@ impl FieldType {
             Self::Array(_) => 9,
         }
     }
+
+    pub fn repr(&self) -> Arc<str> {
+        match self {
+            Self::Byte => "B".into(),
+            Self::Char => "C".into(),
+            Self::Double => "D".into(),
+            Self::Float => "F".into(),
+            Self::Int => "I".into(),
+            Self::Long => "J".into(),
+            Self::Object(obj) => format!("L{obj};").into(),
+            Self::Short => "S".into(),
+            Self::Boolean => "Z".into(),
+            Self::Array(inner) => format!("[{}", inner.repr()).into(),
+        }
+    }
 }
 
 pub struct FieldHandle<FT = FieldType> {
