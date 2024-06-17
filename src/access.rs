@@ -1,6 +1,9 @@
 use std::fmt::{Debug, Display};
 use std::ops::{BitAnd, BitOr};
 
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
+
 #[macro_export]
 macro_rules! access {
     ($($acc:ident)*) => {
