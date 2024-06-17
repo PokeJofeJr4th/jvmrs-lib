@@ -61,6 +61,7 @@ macro_rules! access {
 }
 
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 /// Flag Name           Value   Interpretation
 /// `ACC_PUBLIC`          0x0001  Declared public; may be accessed from outside its package.
 /// `ACC_PRIVATE`         0x0002  Declared private; usable only within the defining class.
